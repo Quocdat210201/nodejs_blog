@@ -4,6 +4,9 @@ const morgan = require("morgan");
 const handlebars = require("express-handlebars");
 
 const route = require("./routes");
+const db = require("./config/db");
+
+db.connect()
 
 const app = express();
 const port = 3000;
@@ -16,17 +19,10 @@ app.use(express.static(__dirname + "/public"));
 // Templete engine
 app.engine("hbs", handlebars.engine({ extname: ".hbs" }));
 app.set("view engine", "hbs");
-  app.set("views", path.join(__dirname, "resources\\views"));
+app.set("views", path.join(__dirname, "resources","views"));
 
 route(app);
 
-// app.get("/", (req, res) => {
-//   res.render("home");
-// });
-// app.get("/news", (req, res) => {
-//   res.render("news");
-// });
-
 app.listen(port, () => {
-  console.log(`Example app listening on port http://localhost:${port}`);
+  console.log(`App listening on port http://localhost:${port}`);
 });
